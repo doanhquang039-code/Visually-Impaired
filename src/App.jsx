@@ -94,7 +94,7 @@ export default function App() {
       case 'clock':    return <ClockSection addToast={addToast} />
       case 'color':    return <ColorSection addToast={addToast} />
       case 'braille':  return <BrailleSection addToast={addToast} />
-      case 'settings': return <SettingsSection settings={settings} updateSetting={updateSetting} resetSettings={resetSettings} addToast={addToast} />
+      case 'settings': return <SettingsSection settings={settings} updateSetting={updateSetting} resetSettings={resetSettings} addToast={addToast} onOpenAdmin={() => setShowAdmin(true)} />
       default:         return <HomeSection setActiveTab={setActiveTab} />
     }
   }

@@ -3,7 +3,7 @@ import { useTTS } from '../hooks/useTTS'
 
 const FONT_SIZES = [14, 16, 18, 20, 22, 24, 26, 28]
 
-export default function SettingsSection({ settings, updateSetting, resetSettings, addToast }) {
+export default function SettingsSection({ settings, updateSetting, resetSettings, addToast, onOpenAdmin }) {
   const tts = useTTS()
 
   const handleReset = () => {
@@ -187,19 +187,31 @@ export default function SettingsSection({ settings, updateSetting, resetSettings
         </div>
       </div>
 
-      {/* Reset */}
-      <div className="card" style={{ borderColor: 'rgba(248,113,113,0.2)' }}>
-        <div style={{ fontWeight: 700, marginBottom: 10 }}>🔄 Đặt Lại Cài Đặt</div>
-        <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: 16 }}>
-          Đưa tất cả cài đặt về mặc định ban đầu. Hành động này không thể hoàn tác.
+      {/* Admin Dashboard */}
+      <div className="card" style={{ marginTop: 16, borderColor: 'rgba(240,180,41,0.25)', background: 'linear-gradient(135deg, rgba(240,180,41,0.04), transparent)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+          <div style={{ width: 44, height: 44, background: 'linear-gradient(135deg,#f0b429,#e0a020)', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.3rem', flexShrink: 0 }}>
+            📊
+          </div>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontWeight: 700, fontSize: '0.95rem' }}>Admin Dashboard</div>
+            <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: 2 }}>
+              Thống kê lượt truy cập, tính năng phổ biến, biểu đồ theo ngày/tháng
+            </div>
+          </div>
+          <button
+            className="btn btn-outline-gold btn-sm"
+            onClick={onOpenAdmin}
+            aria-label="Mở Admin Dashboard"
+            style={{ flexShrink: 0 }}
+          >
+            📊 Mở
+          </button>
         </div>
-        <button
-          className="btn btn-danger"
-          onClick={handleReset}
-          aria-label="Đặt lại tất cả cài đặt về mặc định"
-        >
-          🔄 Đặt Lại Tất Cả
-        </button>
+        <div style={{ marginTop: 12, fontSize: '0.72rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: 6 }}>
+          <kbd style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border-default)', padding: '2px 7px', borderRadius: 4, fontFamily: 'monospace', color: 'var(--accent-gold-light)', fontSize: '0.72rem' }}>Alt+Shift+A</kbd>
+          <span>— phím tắt nhanh từ bất kỳ trang nào</span>
+        </div>
       </div>
     </div>
   )
