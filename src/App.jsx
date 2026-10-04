@@ -8,7 +8,9 @@ import ClockSection from './components/ClockSection'
 import ColorSection from './components/ColorSection'
 import BrailleSection from './components/BrailleSection'
 import SettingsSection from './components/SettingsSection'
+import AdminDashboard from './components/AdminDashboard'
 import { useSettings } from './hooks/useSettings'
+import { useAnalytics } from './hooks/useAnalytics'
 
 // Toast notification component
 function Toast({ toast }) {
@@ -40,7 +42,11 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('home')
   const [toasts, setToasts] = useState([])
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [showAdmin, setShowAdmin] = useState(false)
   const { settings, updateSetting, resetSettings } = useSettings()
+
+  // Track analytics
+  useAnalytics(activeTab)
 
   const addToast = useCallback((message, type = 'info') => {
     const id = Date.now()
@@ -54,6 +60,12 @@ export default function App() {
   // Global keyboard shortcuts
   useEffect(() => {
     const handleKey = (e) => {
+      // Secret admin: Alt+Shift+A
+      if (e.altKey && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
+        e.preventDefault()
+        setShowAdmin(prev => !prev)
+        return
+      }
       if (!e.altKey) return
       const map = { '1': 'tts', '2': 'ocr', '3': 'stt', '4': 'news', '5': 'clock', '6': 'color', '7': 'braille' }
       if (map[e.key]) { e.preventDefault(); setActiveTab(map[e.key]) }
@@ -90,6 +102,9 @@ export default function App() {
   return (
     <div className="app-wrapper">
       <a href="#main-content" className="skip-link">Chuyển đến nội dung chính</a>
+
+      {/* Admin Dashboard overlay */}
+      {showAdmin && <AdminDashboard onClose={() => setShowAdmin(false)} />}
 
       {/* Header */}
       <header className="header" role="banner">

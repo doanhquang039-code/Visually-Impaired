@@ -1,4 +1,4 @@
-// Đồng Hồ Nói Giờ - Speaking Clock
+// Đồng Hồ Nói Giờ - Speaking Clock (Fixed)
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useTTS } from '../hooks/useTTS'
 
@@ -40,6 +40,9 @@ export default function ClockSection({ addToast }) {
   const [newAlarmLabel, setNewAlarmLabel] = useState('')
   const alarmTriggeredRef = useRef(new Set())
   const tts = useTTS()
+  // Use ref for tts.speak to avoid re-render loop in useEffect deps
+  const ttsRef = useRef(tts)
+  useEffect(() => { ttsRef.current = tts })
 
   // Tick clock
   useEffect(() => {
@@ -47,17 +50,17 @@ export default function ClockSection({ addToast }) {
     return () => clearInterval(timer)
   }, [])
 
-  // Auto-announce clock
+  // Auto-announce clock (use ref to avoid re-render loop)
   useEffect(() => {
     if (interval === 0) return
     const ms = interval * 60 * 1000
     const id = setInterval(() => {
-      tts.speak(speakableTime(new Date()))
+      ttsRef.current.speak(speakableTime(new Date()))
     }, ms)
     return () => clearInterval(id)
-  }, [interval, tts])
+  }, [interval]) // DO NOT add tts here - causes infinite loop
 
-  // Alarm checker
+  // Alarm checker (check every 10s, use ref for tts)
   useEffect(() => {
     const checker = setInterval(() => {
       const current = new Date()
@@ -68,17 +71,17 @@ export default function ClockSection({ addToast }) {
           const msg = alarm.label
             ? `Báo thức! ${alarm.label}. Bây giờ là ${alarm.time}.`
             : `Báo thức! Đã đến ${alarm.time} rồi.`
-          tts.speak(msg)
+          ttsRef.current.speak(msg)
           addToast(`⏰ Báo thức: ${alarm.label || alarm.time}`, 'info')
         }
       })
-    }, 5000)
+    }, 10000)
     return () => clearInterval(checker)
-  }, [alarms, addToast, tts])
+  }, [alarms, addToast]) // tts via ref - safe
 
   const speakNow = useCallback(() => {
-    tts.speak(speakableTime(now) + ' ' + formatDate(now) + '.')
-  }, [now, tts])
+    ttsRef.current.speak(speakableTime(now) + ' ' + formatDate(now) + '.')
+  }, [now])
 
   const addAlarm = () => {
     if (!newAlarmTime) { addToast('Vui lòng chọn giờ báo thức', 'error'); return }
@@ -87,7 +90,7 @@ export default function ClockSection({ addToast }) {
     setNewAlarmTime('')
     setNewAlarmLabel('')
     addToast(`Đã đặt báo thức lúc ${newAlarmTime}`, 'success')
-    tts.speak(`Đã đặt báo thức lúc ${newAlarmTime}`)
+    ttsRef.current.speak(`Đã đặt báo thức lúc ${newAlarmTime}`)
   }
 
   const toggleAlarm = (id) => {
@@ -220,7 +223,7 @@ export default function ClockSection({ addToast }) {
                   setIntervalVal(opt.value)
                   const msg = opt.value === 0 ? 'Đã tắt thông báo tự động.' : `Sẽ thông báo giờ mỗi ${opt.label}.`
                   addToast(msg, 'info')
-                  if (opt.value > 0) tts.speak(msg)
+                  if (opt.value > 0) ttsRef.current.speak(msg)
                 }}
                 aria-pressed={interval === opt.value}
               >
