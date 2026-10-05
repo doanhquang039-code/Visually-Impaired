@@ -18,13 +18,21 @@ function monthLabel(ts) {
 }
 
 const FEATURE_META = {
-  tts:     { label: 'Đọc Văn Bản', icon: '🔊', color: '#f0b429' },
-  ocr:     { label: 'Đọc Ảnh',     icon: '📷', color: '#4e9af1' },
-  stt:     { label: 'Giọng Nói',   icon: '🎙️', color: '#34d399' },
-  news:    { label: 'Tin Tức',     icon: '📰', color: '#a78bfa' },
-  clock:   { label: 'Đồng Hồ',    icon: '⏰', color: '#fb923c' },
-  color:   { label: 'Màu Sắc',    icon: '🎨', color: '#f472b6' },
-  braille: { label: 'Braille',    icon: '📖', color: '#facc15' },
+  tts:       { label: 'Đọc Văn Bản', icon: '🔊', color: '#f0b429' },
+  ocr:       { label: 'Đọc Ảnh',     icon: '📷', color: '#4e9af1' },
+  stt:       { label: 'Giọng Nói',   icon: '🎙️', color: '#34d399' },
+  news:      { label: 'Tin Tức',     icon: '📰', color: '#a78bfa' },
+  clock:     { label: 'Đồng Hồ',    icon: '⏰', color: '#fb923c' },
+  color:     { label: 'Màu Sắc',    icon: '🎨', color: '#f472b6' },
+  braille:   { label: 'Braille',    icon: '📖', color: '#facc15' },
+  calc:      { label: 'Máy Tính',   icon: '🔢', color: '#818cf8' },
+  qr:        { label: 'Quét QR',    icon: '📱', color: '#22c55e' },
+  notes:     { label: 'Ghi Chú',    icon: '🎤', color: '#fbbf24' },
+  emergency: { label: 'Khẩn Cấp',   icon: '🆘', color: '#ef4444' },
+  weather:   { label: 'Thời Tiết',  icon: '🌤️', color: '#0ea5e9' },
+  convert:   { label: 'Đo Lường',   icon: '📏', color: '#d946ef' },
+  dict:      { label: 'Từ Điển',    icon: '🔤', color: '#6366f1' },
+  location:  { label: 'Định Vị',    icon: '📍', color: '#ec4899' },
 }
 
 // ─── SVG Bar Chart ──────────────────────────────────────────────────────────

@@ -62,7 +62,7 @@ export function seedDemoData() {
       const numFeatures = Math.floor(Math.random() * 4) + 1
       for (let f = 0; f < numFeatures; f++) {
         // TTS and news are most popular
-        const weightedFeatures = ['tts', 'tts', 'tts', 'news', 'news', 'ocr', 'stt', 'clock', 'color', 'braille']
+        const weightedFeatures = ['tts', 'tts', 'news', 'news', 'ocr', 'stt', 'clock', 'color', 'braille', 'calc', 'qr', 'notes', 'emergency', 'weather', 'convert', 'dict', 'location']
         const feat = weightedFeatures[Math.floor(Math.random() * weightedFeatures.length)]
         events.push({
           ts: sessionTime + f * 60000,

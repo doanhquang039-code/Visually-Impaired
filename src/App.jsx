@@ -7,6 +7,14 @@ import NewsSection from './components/NewsSection'
 import ClockSection from './components/ClockSection'
 import ColorSection from './components/ColorSection'
 import BrailleSection from './components/BrailleSection'
+import CalculatorSection from './components/CalculatorSection'
+import QRScannerSection from './components/QRScannerSection'
+import VoiceNotesSection from './components/VoiceNotesSection'
+import EmergencySection from './components/EmergencySection'
+import WeatherSection from './components/WeatherSection'
+import ConverterSection from './components/ConverterSection'
+import DictionarySection from './components/DictionarySection'
+import LocationSection from './components/LocationSection'
 import SettingsSection from './components/SettingsSection'
 import AdminDashboard from './components/AdminDashboard'
 import { useSettings } from './hooks/useSettings'
@@ -24,15 +32,23 @@ function Toast({ toast }) {
 }
 
 const NAV_ITEMS = [
-  { id: 'home',     label: 'Trang Chủ',   icon: '🏠', shortLabel: 'Chủ' },
-  { id: 'tts',      label: 'Đọc Văn Bản', icon: '🔊', shortLabel: 'Đọc' },
-  { id: 'ocr',      label: 'Đọc Ảnh',     icon: '📷', shortLabel: 'Ảnh' },
-  { id: 'stt',      label: 'Giọng Nói',   icon: '🎙️', shortLabel: 'Nói' },
-  { id: 'news',     label: 'Tin Tức',     icon: '📰', shortLabel: 'Tin' },
-  { id: 'clock',    label: 'Đồng Hồ',     icon: '⏰', shortLabel: 'Giờ' },
-  { id: 'color',    label: 'Màu Sắc',     icon: '🎨', shortLabel: 'Màu' },
-  { id: 'braille',  label: 'Braille',     icon: '📖', shortLabel: 'Braille' },
-  { id: 'settings', label: 'Cài Đặt',     icon: '⚙️', shortLabel: 'Cài' },
+  { id: 'home',      label: 'Trang Chủ',   icon: '🏠', shortLabel: 'Chủ' },
+  { id: 'tts',       label: 'Đọc Văn Bản', icon: '🔊', shortLabel: 'Đọc' },
+  { id: 'ocr',       label: 'Đọc Ảnh',     icon: '📷', shortLabel: 'Ảnh' },
+  { id: 'stt',       label: 'Giọng Nói',   icon: '🎙️', shortLabel: 'Nói' },
+  { id: 'news',      label: 'Tin Tức',     icon: '📰', shortLabel: 'Tin' },
+  { id: 'clock',     label: 'Đồng Hồ',     icon: '⏰', shortLabel: 'Giờ' },
+  { id: 'color',     label: 'Màu Sắc',     icon: '🎨', shortLabel: 'Màu' },
+  { id: 'braille',   label: 'Braille',     icon: '📖', shortLabel: 'Braille' },
+  { id: 'calc',      label: 'Máy Tính',    icon: '🔢', shortLabel: 'Tính' },
+  { id: 'qr',        label: 'Quét QR',     icon: '📱', shortLabel: 'QR' },
+  { id: 'notes',     label: 'Ghi Chú',     icon: '🎤', shortLabel: 'Ghi' },
+  { id: 'emergency', label: 'Khẩn Cấp',    icon: '🆘', shortLabel: 'Gọi' },
+  { id: 'weather',   label: 'Thời Tiết',   icon: '🌤️', shortLabel: 'Thời' },
+  { id: 'convert',   label: 'Đo Lường',    icon: '📏', shortLabel: 'Đổi' },
+  { id: 'dict',      label: 'Từ Điển',     icon: '🔤', shortLabel: 'Từ' },
+  { id: 'location',  label: 'Định Vị',     icon: '📍', shortLabel: 'GPS' },
+  { id: 'settings',  label: 'Cài Đặt',     icon: '⚙️', shortLabel: 'Cài' },
 ]
 
 // Mobile nav shows only first 5 + settings
@@ -67,8 +83,12 @@ export default function App() {
         return
       }
       if (!e.altKey) return
-      const map = { '1': 'tts', '2': 'ocr', '3': 'stt', '4': 'news', '5': 'clock', '6': 'color', '7': 'braille' }
-      if (map[e.key]) { e.preventDefault(); setActiveTab(map[e.key]) }
+      const map = { 
+        '1': 'tts', '2': 'ocr', '3': 'stt', '4': 'news', '5': 'clock', '6': 'color', '7': 'braille',
+        '8': 'calc', '9': 'qr', '0': 'notes', 'e': 'emergency', 'w': 'weather', 'c': 'convert', 'd': 'dict', 'l': 'location'
+      }
+      const key = e.key.toLowerCase()
+      if (map[key]) { e.preventDefault(); setActiveTab(map[key]) }
       if (e.key === 'h' || e.key === 'H') { e.preventDefault(); setActiveTab('home') }
       if (e.key === ',') { e.preventDefault(); setActiveTab('settings') }
       if (e.key === '+' || e.key === '=') { e.preventDefault(); increaseFontSize() }
@@ -94,6 +114,14 @@ export default function App() {
       case 'clock':    return <ClockSection addToast={addToast} />
       case 'color':    return <ColorSection addToast={addToast} />
       case 'braille':  return <BrailleSection addToast={addToast} />
+      case 'calc':     return <CalculatorSection addToast={addToast} />
+      case 'qr':       return <QRScannerSection addToast={addToast} />
+      case 'notes':    return <VoiceNotesSection addToast={addToast} />
+      case 'emergency':return <EmergencySection addToast={addToast} />
+      case 'weather':  return <WeatherSection addToast={addToast} />
+      case 'convert':  return <ConverterSection addToast={addToast} />
+      case 'dict':     return <DictionarySection addToast={addToast} />
+      case 'location': return <LocationSection addToast={addToast} />
       case 'settings': return <SettingsSection settings={settings} updateSetting={updateSetting} resetSettings={resetSettings} addToast={addToast} onOpenAdmin={() => setShowAdmin(true)} />
       default:         return <HomeSection setActiveTab={setActiveTab} />
     }

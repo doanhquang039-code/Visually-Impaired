@@ -8,6 +8,14 @@ export default function HomeSection({ setActiveTab }) {
     { id: 'clock', tab: 'clock', icon: '⏰', title: 'Đồng Hồ Nói Giờ', desc: 'Nghe giờ hiện tại, đặt báo thức tự động thông báo bằng giọng nói.', color: 'green', shortcut: 'Alt+5' },
     { id: 'color', tab: 'color', icon: '🎨', title: 'Nhận Diện Màu', desc: 'Hướng camera vào vật thể để nghe tên màu sắc bằng tiếng Việt.', color: 'purple', shortcut: 'Alt+6' },
     { id: 'braille', tab: 'braille', icon: '📖', title: 'Chữ Braille', desc: 'Chuyển đổi văn bản tiếng Việt sang ký hiệu chữ nổi Braille.', color: 'gold', shortcut: 'Alt+7' },
+    { id: 'calc', tab: 'calc', icon: '🔢', title: 'Máy Tính Nói', desc: 'Tính toán và đọc to kết quả, hỗ trợ đọc các phép tính.', color: 'blue', shortcut: 'Alt+8' },
+    { id: 'qr', tab: 'qr', icon: '📱', title: 'Quét QR Code', desc: 'Dùng camera quét mã QR và đọc to nội dung bên trong.', color: 'green', shortcut: 'Alt+9' },
+    { id: 'notes', tab: 'notes', icon: '🎤', title: 'Ghi Chú Giọng Nói', desc: 'Ghi lại, lưu trữ và phát lại các ghi chú bằng giọng nói.', color: 'gold', shortcut: 'Alt+0' },
+    { id: 'emergency', tab: 'emergency', icon: '🆘', title: 'Gọi Khẩn Cấp', desc: 'Danh bạ nhanh: 113, 114, 115 và gọi nhanh cho người thân.', color: 'purple', shortcut: 'Alt+E' },
+    { id: 'weather', tab: 'weather', icon: '🌤️', title: 'Thời Tiết Nói', desc: 'Cập nhật thời tiết hiện tại qua GPS và đọc bằng giọng nói.', color: 'blue', shortcut: 'Alt+W' },
+    { id: 'convert', tab: 'convert', icon: '📏', title: 'Chuyển Đơn Vị', desc: 'Chuyển đổi nhanh độ dài, nhiệt độ, khối lượng và đọc.', color: 'green', shortcut: 'Alt+C' },
+    { id: 'dict', tab: 'dict', icon: '🔤', title: 'Từ Điển Việt', desc: 'Tra nghĩa từ tiếng Việt, tích hợp đọc to định nghĩa.', color: 'purple', shortcut: 'Alt+D' },
+    { id: 'location', tab: 'location', icon: '📍', title: 'Định Hướng GPS', desc: 'Đọc tọa độ, địa chỉ hiện tại và kết nối Google Maps.', color: 'gold', shortcut: 'Alt+L' },
     { id: 'settings', tab: 'settings', icon: '⚙️', title: 'Cài Đặt', desc: 'Tuỳ chỉnh cỡ chữ, giọng đọc, tốc độ và lưu tự động.', color: 'blue', shortcut: 'Alt+,' },
   ]
 
@@ -18,7 +26,7 @@ export default function HomeSection({ setActiveTab }) {
         <img src="/logo.png" alt="Logo MatViet" className="hero-logo" />
         <h1 className="hero-title">MatViet 2.0</h1>
         <p className="hero-sub">
-          Ứng dụng hỗ trợ người khiếm thị Việt Nam với 8 tính năng: đọc văn bản, nhận dạng ảnh, giọng nói, tin tức, đồng hồ, màu sắc, Braille và hơn thế nữa.
+          Ứng dụng hỗ trợ người khiếm thị Việt Nam với 15 tính năng: đọc văn bản, OCR, giọng nói, tin tức, đồng hồ, màu sắc, Braille, máy tính, mã QR, thời tiết, định vị và hơn thế nữa.
         </p>
         <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
           <button id="home-start-btn" className="btn btn-primary btn-lg" onClick={() => setActiveTab('tts')} aria-label="Bắt đầu sử dụng">
@@ -62,7 +70,8 @@ export default function HomeSection({ setActiveTab }) {
         </div>
         <div className="shortcut-grid">
           {[
-            { key: 'Alt+1 ~ 7', desc: 'Chuyển giữa 7 tính năng' },
+            { key: 'Alt+1 ~ 0', desc: 'Chuyển 10 tính năng đầu' },
+            { key: 'Alt + E,W,C,D,L', desc: 'Mở tính năng phụ' },
             { key: 'Alt+H', desc: 'Về trang chủ' },
             { key: 'Alt+,', desc: 'Mở Cài Đặt' },
             { key: 'Alt+P', desc: 'Tạm dừng đọc' },
